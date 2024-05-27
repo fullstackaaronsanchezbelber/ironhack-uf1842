@@ -12,7 +12,9 @@
  */
 
 function filterProgrammingLanguages(languages, minYears) {
-
+    return languages
+        .filter(language => language.years >= minYears)
+        .map(language => language.name);
 }
 
 // Caso 1: Candidata con suficientes años de experiencia en algunos lenguajes
@@ -23,7 +25,7 @@ const candidate1 = [
 ];
 console.log(filterProgrammingLanguages(candidate1, 3)); // ["JavaScript", "Java"]
 
-// Caso 2: Candidata con suficientes años de experiencia en todos los lenguajes. Debemos devolver un string con todos los lenguajes del array
+// Caso 2: Candidata con suficientes años de experiencia en todos los lenguajes. Devuelve un string con todos los lenguajes del array
 const candidate2 = [
     { name: 'C++', years: 4 },
     { name: 'Ruby', years: 5 },
@@ -58,3 +60,4 @@ const candidate6 = [
     { name: 'Java', years: 4 },
 ];
 console.log(filterProgrammingLanguages(candidate6, 4)); // ["JavaScript", "Java"]
+

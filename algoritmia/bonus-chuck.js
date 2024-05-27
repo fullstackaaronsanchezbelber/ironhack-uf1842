@@ -2,6 +2,8 @@
 
 function ifChuckSaysSo() {
 
+    return !1;
+
 }
 
 console.log(ifChuckSaysSo()); // false

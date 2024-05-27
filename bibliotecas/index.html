@@ -4,35 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico de Pastel con Chart.js</title>
+    <title>Gráfico de Barras con Chart.js</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <h1>Gráfico de Pastel con Chart.js</h1>
-    <main style="width: 30%; margin: 0 auto">
-        <canvas id="myPieChart" width="800px"></canvas>
+    <h1>Gráfico de Barras con Chart.js</h1>
+    <main style="width: 50%; margin: 0 auto">
+        <canvas id="myBarChart" width="800px"></canvas>
     </main>
     <script>
         const data = {
-            labels: ['Naranja', 'Plátano', 'Manzana', 'Sandía'],
+            labels: ['Naranja', 'Plátano', 'Manzana', 'Sandía', 'Melón'], // Se añade el melón
             datasets: [{
-                data: [17.04, 11.75, 9.44, 7.82],
+                label: 'Consumo de fruta por persona y año',
+                data: [17.04, 11.75, 9.44, 7.82, 7.62], // Se añade el melón con un valor inicial de 0
                 backgroundColor: [
                     'rgba(255, 165, 0, 0.2)', // Naranja
                     'rgba(255, 255, 0, 0.2)', // Plátano
                     'rgba(255, 0, 0, 0.2)', // Manzana
                     'rgba(0, 99, 0, 0.2)', // Sandía
+                    'rgba(255, 140, 0, 0.2)', // Melón
                 ],
-                borderWidth: 1,
-                label: "Consumo de fruta por persona y año"
-
+                borderColor: [
+                    'rgba(255, 165, 0, 1)', // Naranja
+                    'rgba(255, 255, 0, 1)', // Plátano
+                    'rgba(255, 0, 0, 1)', // Manzana
+                    'rgba(0, 99, 0, 1)', // Sandía
+                    'rgba(255, 140, 0, 1)', // Melón
+                ],
+                borderWidth: 1
             }]
         };
 
-        // Configuración del gráfico
         const config = {
-            type: 'pie',
+            type: 'bar', //barra
             data: data,
             options: {
                 responsive: true,
@@ -44,19 +50,24 @@
                         callbacks: {
                             label: function (tooltipItem) {
                                 let message = `${tooltipItem.label}: ${tooltipItem.raw} kg`;
-
-                                return message
-
+                                if (tooltipItem.raw > 8) { //8 kg
+                                    message += ' - Producción insuficiente';
+                                }
+                                return message;
                             }
                         }
                     }
                 },
+                scales: {
+                    y: {
+                        beginAtZero: true // Comenzar el eje Y desde cero
+                    }
+                }
             }
         };
 
-        const ctx = document.querySelector('#myPieChart').getContext('2d');
-        const myPieChart = new Chart(ctx, config);
-
+        const ctx = document.querySelector('#myBarChart').getContext('2d');
+        const myBarChart = new Chart(ctx, config);
     </script>
 </body>
 
